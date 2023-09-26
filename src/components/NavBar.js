@@ -8,15 +8,6 @@ import { Link } from 'react-router-dom'
 const NavBar = () => {
     // const [allData, setAllData] = useState([])
     // const [filteredData, setFilteredData] = useState(allData);
-    // const search = (key) => {
-    //     let result = [];
-    //     fetch(` https://newsapi.org/v2/everything?q=${key}&sortBy=publishedAt&apiKey=${props.apiKey}`)
-    //         .then((data) => {
-    //             data.json().then((response) => {
-    //                 setAllData(response.data)
-    //                 setFilteredData(response.data)
-    //             })
-    //         })
     // result = allData.filter((data) => {
     //     return data.source.search(key)
     // })
@@ -25,17 +16,26 @@ const NavBar = () => {
     // const search = (key) => {
     //     let result = [];
     //     result =allData.filter((data)=>{
-    //          return data.title.search(key)!= -1
+    //          return data.title.search(key)!== -1
     //         })
     //         setFilteredData(result)
     // }
     //     useEffect((key) => {
-    //         fetch(`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&pageSize=${props.pageSize}?q=` + key)
-    //             .then(response => {
-    //                 setAllData(response.data)
-    //                 setFilteredData(response.data)
-    //             })
-    //     }, [])
+    //         fetch(`https://newsapi.org/v2/top-headlines?q=${key}&sortBy=publishedAt&apiKey=${props.apiKey}`)
+    //         .then(response => response.json())
+    //         .then(response => {
+    //             setAllData(response.articles)
+    //             setFilteredData(response.articles)
+    //         })
+    // }, [])
+    //     // function search(key) {
+    //     fetch(`https://newsapi.org/v2/everything?q=${key}&sortBy=publishedAt&apiKey=${props.apiKey}`)
+    //       .then(response => response.json())
+    //       .then(data => {
+    //         setFilteredData(data.articles);
+    //       })
+    //       .catch(error => console.log(error));
+    //   }
     return (
         <div>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark ">
