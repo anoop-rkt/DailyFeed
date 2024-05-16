@@ -31,13 +31,35 @@ const News = (props) => {
         //eslint-disable-next-line
     }, [])
     const fetchMoreData = async () => {
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
-        setPage(page + 1)
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        setArticles(articles.concat(parsedData.articles))
-        setTotalResults(parsedData.totalResults)
+        const storedData = localStorage.getItem(`${props.category}ArticlesData`);
+
+        if (storedData) {
+            // If data for this category is already stored, use it
+            const parsedData = JSON.parse(storedData);
+            setArticles(parsedData.articles);
+            setTotalResults(parsedData.totalResults);
+            setPage(page + 1); // Increment page for the next fetch
+        } else {
+            // If data is not stored, fetch it from the API
+            const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
+
+            try {
+                let data = await fetch(url);
+                let parsedData = await data.json();
+
+                // Store fetched data locally in JSON format
+                localStorage.setItem(`${props.category}ArticlesData`, JSON.stringify(parsedData));
+
+                // Update state with fetched data
+                setArticles(parsedData.articles);
+                setTotalResults(parsedData.totalResults);
+                setPage(page + 1); // Increment page for the next fetch
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
     }
+
     return (
         <>
             <h2 className='text-center ' style={{ margin: '34px 0px', marginTop: '90px' }}>DailyFeed - Top {capitalizeFirstLetter(props.category)} Headlines</h2>
